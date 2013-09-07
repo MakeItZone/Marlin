@@ -251,10 +251,10 @@
 
 // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 
-// Julian's Huxley heated PCB bed
-    #define  DEFAULT_bedKp 10.00
-    #define  DEFAULT_bedKi .023
-    #define  DEFAULT_bedKd 305.4
+// Julian's Huxley heated PCB bed- from M303 E-1 C8 S60
+#define  DEFAULT_bedKp 219.80
+#define  DEFAULT_bedKi 10.96
+#define  DEFAULT_bedKd 1101.95
 
 #endif // PIDTEMPBED
 
