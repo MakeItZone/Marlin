@@ -29,7 +29,7 @@
   // if Kc is choosen well, the additional required power due to increased melting should be compensated.
   #define PID_ADD_EXTRUSION_RATE  
   #ifdef PID_ADD_EXTRUSION_RATE
-    #define  DEFAULT_Kc (1) //heatingpower=Kc*(e_speed)
+    #define  DEFAULT_Kc (1.1) //heatingpower=Kc*(e_speed)
   #endif
 #endif
 
