@@ -5,6 +5,13 @@
 // Advanced settings can be found in Configuration_adv.h
 // BASIC SETTINGS: select your board type, temperature sensor type, axis scaling, and endstop configuration
 
+//===========================================================================
+//============================= DELTA Printer ===============================
+//===========================================================================
+// For a Delta printer rplace the configuration files wilth the files in the 
+// example_configurations/delta directory.
+// 
+
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
@@ -25,6 +32,7 @@
 // 11 = Gen7 v1.1, v1.2 = 11
 // 12 = Gen7 v1.3
 // 13 = Gen7 v1.4
+// 20 = Sethi 3D_1 
 // 3  = MEGA/RAMPS up to 1.2 = 3
 // 33 = RAMPS 1.3 / 1.4 (Power outputs: Extruder, Fan, Bed)
 // 34 = RAMPS 1.3 / 1.4 (Power outputs: Extruder0, Extruder1, Bed)
@@ -38,6 +46,7 @@
 // 64 = STB V1.1
 // 65 = Azteeg X1
 // 66 = Melzi with ATmega1284 (MaKr3d version)
+// 67 = Azteeg X3
 // 7  = Ultimaker
 // 71 = Ultimaker (Older electronics. Pre 1.5.4. This is rare)
 // 77 = 3Drag Controller
@@ -69,46 +78,6 @@
 // 2 = X-Box 360 203Watts (the blue wire connected to PS_ON and the red wire to VCC)
 
 #define POWER_SUPPLY 1
-
-
-//===========================================================================
-//============================== Delta Settings =============================
-//===========================================================================
-// Enable DELTA kinematics
-//#define DELTA
-
-// Make delta curves from many straight lines (linear interpolation).
-// This is a trade-off between visible corners (not enough segments)
-// and processor overload (too many expensive sqrt calls).
-#define DELTA_SEGMENTS_PER_SECOND 200
-
-// Center-to-center distance of the holes in the diagonal push rods.
-#define DELTA_DIAGONAL_ROD 250.0 // mm
-
-// Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 175.0 // mm
-
-// Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 33.0 // mm
-
-// Horizontal offset of the universal joints on the carriages.
-#define DELTA_CARRIAGE_OFFSET 18.0 // mm
-
-// Effective horizontal distance bridged by diagonal push rods.
-#define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
-
-// Effective X/Y positions of the three vertical towers.
-#define SIN_60 0.8660254037844386
-#define COS_60 0.5
-#define DELTA_TOWER1_X -SIN_60*DELTA_RADIUS // front left tower
-#define DELTA_TOWER1_Y -COS_60*DELTA_RADIUS
-#define DELTA_TOWER2_X SIN_60*DELTA_RADIUS // front right tower
-#define DELTA_TOWER2_Y -COS_60*DELTA_RADIUS
-#define DELTA_TOWER3_X 0.0 // back middle tower
-#define DELTA_TOWER3_Y DELTA_RADIUS
-
-// Diagonal rod squared
-#define DELTA_DIAGONAL_ROD_2 pow(DELTA_DIAGONAL_ROD,2)
 
 //===========================================================================
 //=============================Thermal Settings  ============================
@@ -419,7 +388,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
 //#define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
-
+//#define ENCODER_PULSES_PER_STEP 1 // Increase if you have a high resolution encoder
 //#define ULTIMAKERCONTROLLER //as available from the ultimaker online store.
 //#define ULTIPANEL  //the ultipanel as on thingiverse
 
