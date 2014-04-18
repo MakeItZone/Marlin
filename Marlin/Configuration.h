@@ -74,7 +74,8 @@
 #endif
 
 // Define this to set a custom name for your generic Mendel,
-// #define CUSTOM_MENDEL_NAME "This Mendel"
+//#define CUSTOM_MENDEL_NAME "This Mendel"
+#define CUSTOM_MENDEL_NAME "Dream Maker I"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -127,7 +128,7 @@
 // 147 is Pt100 with 4k7 pullup
 // 110 is Pt100 with 1k pullup (non standard)
 
-#define TEMP_SENSOR_0 8
+#define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 8
@@ -201,11 +202,16 @@
 //    #define  DEFAULT_Ki (2.2*PID_dT)
 //    #define  DEFAULT_Kd (80/PID_dT)
 
-// Julian's RepRapPro Huxley - for 110 temp reading (PLA)
-    #define  DEFAULT_Kp 37.53
-    #define  DEFAULT_Ki 2.14
-    #define  DEFAULT_Kd 164.17
+// Julian's RepRapPro Huxley - for temp 155, open air, old Huxley hotend
+    #define  DEFAULT_Kp 30.58
+    #define  DEFAULT_Ki 1.97
+    #define  DEFAULT_Kd 118.74
 
+// Julian's RepRapPro Huxley - for temp 175, open air, new J-Head
+    #define  DEFAULT_Kp 25.33 // 26.72, 23.42, 25.85 => 
+    #define  DEFAULT_Ki 1.51 // 1.62, 1.37, 1.54
+    #define  DEFAULT_Kd 106.30 //110.31, 100.15, 108.43
+    
 #endif // PIDTEMP
 
 // Bed Temperature Control
@@ -331,14 +337,14 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define Z_HOME_DIR -1
 
 #define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
-#define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
+#define max_software_endstops true // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // Travel limits after homing
 #define X_MAX_POS 140
 #define X_MIN_POS 0
 #define Y_MAX_POS 140
 #define Y_MIN_POS 0
-#define Z_MAX_POS 80
+#define Z_MAX_POS 50
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -370,10 +376,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #ifdef AUTO_BED_LEVELING_GRID
 
     // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 30
-    #define RIGHT_PROBE_BED_POSITION 125
-    #define BACK_PROBE_BED_POSITION 125
-    #define FRONT_PROBE_BED_POSITION 30
+    #define LEFT_PROBE_BED_POSITION 20
+    #define RIGHT_PROBE_BED_POSITION 120
+    #define BACK_PROBE_BED_POSITION 110
+    #define FRONT_PROBE_BED_POSITION 50
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -395,14 +401,14 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -0.5
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 47
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -11.6 // original: -12.1
 
-  #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
-                                        // Be sure you have this distance over your Z_MAX_POS in case
+  #define Z_RAISE_BEFORE_HOMING 5     // (in mm) Raise Z before homing (G28) for Probe Clearance.
+                                      // Be sure you have this distance over your Z_MAX_POS in case
 
-  #define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
+  #define XY_TRAVEL_SPEED 1000        // X and Y axis travel speed between probes, in mm/min
 
   #define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
   #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
@@ -412,7 +418,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   //The value is the delay to turn the servo off after powered on - depends on the servo speed; 300ms is good value, but you can try lower it.
   // You MUST HAVE the SERVO_ENDSTOPS defined to use here a value higher than zero otherwise your code will not compile.
 
-  #define PROBE_SERVO_DEACTIVATION_DELAY 300
+  #define PROBE_SERVO_DEACTIVATION_DELAY 600
 
 
 //If you have enabled the Bed Auto Leveling and are using the same Z Probe for Z Homing,
@@ -460,13 +466,13 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Adjusted for Julian's Huxley
-#define HOMING_FEEDRATE {50*60, 50*60, 2*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {50*60, 50*60, 100, 0}  // set the homing speeds (mm/min)
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {184.782, 182.824, 4052.742, 1758.0384} 
 #define DEFAULT_MAX_FEEDRATE          {250, 250, 5, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_ACCELERATION          1000   // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -723,7 +729,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // Use M206 command to correct for switch height offset to actual nozzle height. Store that setting with M500.
 //
 #define SERVO_ENDSTOPS {-1, -1, 0} // Servo index for X, Y, Z. Disable with -1
-#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 70,0} // X,Y,Z Axis Extend and Retract angles
+#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 150,110} // X,Y,Z Axis Extend and Retract angles
 
 #include "Configuration_adv.h"
 #include "thermistortables.h"
