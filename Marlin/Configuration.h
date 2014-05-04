@@ -411,7 +411,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #define Z_RAISE_BEFORE_HOMING 5     // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
 
-  #define XY_TRAVEL_SPEED 100        // X and Y axis travel speed between probes, in mm/min
+  #define XY_TRAVEL_SPEED 1000         // X and Y axis travel speed between probes, in mm/min
 
   #define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
   #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
@@ -472,7 +472,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define HOMING_FEEDRATE {50*60, 50*60, 100, 0}  // set the homing speeds (mm/min)
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {184.782, 182.824, 8105.484, 1758.0384} 
 #define DEFAULT_MAX_FEEDRATE          {250, 250, 5, 25}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_ACCELERATION      {3000, 3000, 10, 10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          1000   // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
