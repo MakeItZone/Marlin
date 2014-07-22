@@ -93,7 +93,7 @@
 #define POWER_SUPPLY 1
 
 // Define this to have the electronics keep the power supply off on startup. If you don't know what this is leave it.
-// #define PS_DEFAULT_OFF
+#define PS_DEFAULT_OFF
 
 //===========================================================================
 //=============================Thermal Settings  ============================
@@ -307,7 +307,7 @@ const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-#define DISABLE_MAX_ENDSTOPS
+//#define DISABLE_MAX_ENDSTOPS
 //#define DISABLE_MIN_ENDSTOPS
 
 // Disable max endstops for compatibility with endstop checking routine
@@ -341,15 +341,15 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
-#define max_software_endstops true // If true, axis won't move to coordinates greater than the defined lengths below.
+#define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
+#define max_software_endstops false // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // Travel limits after homing
 #define X_MAX_POS 140
 #define X_MIN_POS 0
 #define Y_MAX_POS 140
 #define Y_MIN_POS 0
-#define Z_MAX_POS 50
+#define Z_MAX_POS 60
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -383,12 +383,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
     // set the rectangle in which to probe
     #define LEFT_PROBE_BED_POSITION 20
     #define RIGHT_PROBE_BED_POSITION 120
-    #define BACK_PROBE_BED_POSITION 110
-    #define FRONT_PROBE_BED_POSITION 50
+    #define BACK_PROBE_BED_POSITION 130
+    #define FRONT_PROBE_BED_POSITION 80
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
-    #define AUTO_BED_LEVELING_GRID_POINTS 2
+    #define AUTO_BED_LEVELING_GRID_POINTS 3
 
 
   #else  // not AUTO_BED_LEVELING_GRID
@@ -406,11 +406,13 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
-  #define X_PROBE_OFFSET_FROM_EXTRUDER 1
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 48
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -11
+  // M114 results
+  // X:8.20 Y:-44.40 Z:1.00 E:0.00 Count X: 8.20 Y:-44.40 Z:1.00
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -8.2
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 44.4
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1
 
-  #define Z_RAISE_BEFORE_HOMING 5     // (in mm) Raise Z before homing (G28) for Probe Clearance.
+  #define Z_RAISE_BEFORE_HOMING 10    // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
 
   #define XY_TRAVEL_SPEED 2000        // X and Y axis travel speed between probes, in mm/min
@@ -744,7 +746,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // Use M206 command to correct for switch height offset to actual nozzle height. Store that setting with M500.
 //
 #define SERVO_ENDSTOPS {-1, -1, 0} // Servo index for X, Y, Z. Disable with -1
-#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 150,110} // X,Y,Z Axis Extend and Retract angles
+#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 45,0} // X,Y,Z Axis Extend and Retract angles
 
 #include "Configuration_adv.h"
 #include "thermistortables.h"
