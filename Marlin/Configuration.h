@@ -37,7 +37,7 @@
 // 2  = Cheaptronic v1.0
 // 20 = Sethi 3D_1
 // 3  = MEGA/RAMPS up to 1.2 = 3
-// 33 = RAMPS 1.3 / 1.4 (Power outputs: Extruder, Fan, Bed)
+// 33 = RAMPS 1.3 / 1.4 (Power outputs: D10 = Extruder, D9 = Fan, D8 = Bed) 
 // 34 = RAMPS 1.3 / 1.4 (Power outputs: Extruder0, Extruder1, Bed)
 // 35 = RAMPS 1.3 / 1.4 (Power outputs: Extruder, Fan, Fan)
 // 4  = Duemilanove w/ ATMega328P pin assignment
@@ -136,7 +136,7 @@
 #define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 8
+#define TEMP_SENSOR_BED 1 // was 8
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -386,8 +386,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // Travel limits after homing
 #define X_MAX_POS 140
 #define X_MIN_POS 0
-#define Y_MAX_POS 140
-#define Y_MIN_POS 0
+#define Y_MAX_POS 115.0
+#define Y_MIN_POS 0.0
 #define Z_MAX_POS 60
 #define Z_MIN_POS 0
 
@@ -420,10 +420,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #ifdef AUTO_BED_LEVELING_GRID
 
     // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 20
-    #define RIGHT_PROBE_BED_POSITION 120
-    #define BACK_PROBE_BED_POSITION 130
-    #define FRONT_PROBE_BED_POSITION 80
+    #define LEFT_PROBE_BED_POSITION 20.0
+    #define RIGHT_PROBE_BED_POSITION 100.0
+    #define BACK_PROBE_BED_POSITION 40.0
+    #define FRONT_PROBE_BED_POSITION 10.0
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -446,10 +446,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   // M114 results
-  // X:8.20 Y:-44.40 Z:1.00 E:0.00 Count X: 8.20 Y:-44.40 Z:1.00
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -8.2
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 44.4
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1
+  // X:9.50 Y:-45.00 Z:1.50 E:0.00 Count X: 9.50 Y:-45.00 Z:1.60
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 9.50
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 45.00
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.60
 
   #define Z_RAISE_BEFORE_HOMING 10    // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
