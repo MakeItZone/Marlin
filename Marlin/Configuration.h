@@ -446,10 +446,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   // M114 results
-  // X:9.50 Y:-45.00 Z:1.50 E:0.00 Count X: 9.50 Y:-45.00 Z:1.60
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -9.50
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -45.00
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.60
+  // X:9.80 Y:-44.40 Z:1.70
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -9.7
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 44.4
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.70
 
   #define Z_RAISE_BEFORE_HOMING 5    // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
@@ -480,8 +480,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #ifdef Z_SAFE_HOMING
 
     #define Z_SAFE_HOMING_X_POINT (X_MAX_LENGTH/2)    // X point for Z homing when homing all axis (G28)
-    #define Z_SAFE_HOMING_Y_POINT (Y_MAX_LENGTH/2)    // Y point for Z homing when homing all axis (G28)
-
+    #define Z_SAFE_HOMING_Y_POINT (Y_MAX_LENGTH/2)    // Y point for Z homing when homing all axis (G28)    
   #endif
 
 #endif // ENABLE_AUTO_BED_LEVELING
