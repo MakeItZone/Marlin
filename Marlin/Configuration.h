@@ -77,7 +77,7 @@
 
 // Define this to set a custom name for your generic Mendel,
 //#define CUSTOM_MENDEL_NAME "This Mendel"
-#define CUSTOM_MENDEL_NAME "Dream Maker I"
+#define CUSTOM_MENDEL_NAME "ThingMaker I"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -449,7 +449,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   // X:9.80 Y:-44.40 Z:1.70
   #define X_PROBE_OFFSET_FROM_EXTRUDER -9.7
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 44.4
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.70
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.90
 
   #define Z_RAISE_BEFORE_HOMING 5    // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
@@ -549,10 +549,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable EEPROM support
-//#define EEPROM_SETTINGS
+#define EEPROM_SETTINGS
 //to disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
 // please keep turned on if you can.
-//#define EEPROM_CHITCHAT
+#define EEPROM_CHITCHAT
 
 // Preheat Constants
 #define PLA_PREHEAT_HOTEND_TEMP 180
