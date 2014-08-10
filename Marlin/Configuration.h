@@ -298,14 +298,14 @@ your extruder heater takes 2 minutes to hit the target on heating.
 // uncomment the 2 defines below:
 
 // Parameters for all extruder heaters
-#define THERMAL_RUNAWAY_PROTECTION_PERIOD 40 //in seconds
+#define THERMAL_RUNAWAY_PROTECTION_PERIOD 120 //in seconds
 #define THERMAL_RUNAWAY_PROTECTION_HYSTERESIS 4 // in degree Celsius
 
 // If you want to enable this feature for your bed heater,
 // uncomment the 2 defines below:
 
 // Parameters for the bed heater
-#define THERMAL_RUNAWAY_PROTECTION_BED_PERIOD 20 //in seconds
+#define THERMAL_RUNAWAY_PROTECTION_BED_PERIOD 40 //in seconds
 #define THERMAL_RUNAWAY_PROTECTION_BED_HYSTERESIS 2 // in degree Celsius
 //===========================================================================
 
@@ -513,11 +513,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // Adjusted for Julian's Huxley
 #define HOMING_FEEDRATE {50*60, 50*60, 25, 0}  // set the homing speeds (mm/min)
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {184.782, 182.824, 8105.484, 1758.0384} 
-#define DEFAULT_MAX_FEEDRATE          {250, 250, 4, 25}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {3000, 3000, 4, 10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_FEEDRATE          {250, 250, 5, 35}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {3000, 3000, 75, 2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          1000   // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  1000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_ACCELERATION          1500   // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1500   // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
