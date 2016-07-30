@@ -31,7 +31,7 @@
 #define SERIAL_PORT 0
 
 // This determines the communication speed of the printer
-#define BAUDRATE 250000
+#define BAUDRATE 57600
 
 // This enables the serial port associated to the Bluetooth interface
 //#define BTENABLED              // Enable BT interface on AT90USB devices
@@ -459,7 +459,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   // X:9.80 Y:-44.40 Z:1.70
   #define X_PROBE_OFFSET_FROM_EXTRUDER -9.7
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 44.4
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -2.25
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -2.0
 
   #define Z_RAISE_BEFORE_HOMING 5    // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                       // Be sure you have this distance over your Z_MAX_POS in case
