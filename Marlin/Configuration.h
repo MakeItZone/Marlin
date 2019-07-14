@@ -22,6 +22,17 @@
 #pragma once
 
 /**
+ * JGAurora A5 configuration
+ * Authors: Telli Mantelli, Kris Waclawski, Michael Gilardi & Samuel Pinches
+ */
+
+/** 
+ * Tweaks for A3 @ MakeItZone
+ * Using example A5 config + https://github.com/Owivian/Marlin
+ * Author: Julian Rendell
+ */
+
+/**
  * Configuration.h
  *
  * Basic settings such as:
@@ -73,7 +84,7 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(Julian Rendell, MakeItZone generic config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Julian Rendell, MakeItZone JGAurora A3 config)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
@@ -90,7 +101,7 @@
  */
 
 // Enable to show the bitmap in Marlin/_Bootscreen.h on startup.
-#define SHOW_CUSTOM_BOOTSCREEN
+//#define SHOW_CUSTOM_BOOTSCREEN
 
 // Enable to show the bitmap in Marlin/_Statusscreen.h on the status screen.
 //#define CUSTOM_STATUS_SCREEN_IMAGE
@@ -135,11 +146,11 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "MakeItZone - generic"
+#define CUSTOM_MACHINE_NAME "MakeItZone - JGAurora A3"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
-//#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
+//#define MACHINE_UUID "ccc8131a-2818-4667-8988-a4d0b9382dd5"
 
 // @section extruder
 
@@ -402,7 +413,7 @@
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1 // measured to be satisfactorily accurate on center of bed within +/- 1 degC.
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -435,13 +446,13 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP 260
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
-#define BED_MAXTEMP      150
+#define BED_MAXTEMP      115
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -454,8 +465,8 @@
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 #if ENABLED(PIDTEMP)
-  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-  #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
+  #define PID_EDIT_MENU           // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
+  #define PID_AUTOTUNE_MENU       // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
   //#define PID_DEBUG             // Sends debug data to the serial port.
   //#define PID_OPENLOOP 1        // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
@@ -467,9 +478,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Ultimaker
-  #define DEFAULT_Kp 22.2
-  #define DEFAULT_Ki 1.08
-  #define DEFAULT_Kd 114
+  //#define DEFAULT_Kp 22.2
+  //#define DEFAULT_Ki 1.08
+  //#define DEFAULT_Kd 114
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -480,6 +491,11 @@
   //#define DEFAULT_Kp 63.0
   //#define DEFAULT_Ki 2.25
   //#define DEFAULT_Kd 440
+
+  // JG Aurora A3
+  #define  DEFAULT_Kp 26.92
+  #define  DEFAULT_Ki 1.81
+  #define  DEFAULT_Kd 99.92
 
 #endif // PIDTEMP
 
@@ -548,7 +564,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#define EXTRUDE_MAXLENGTH 400
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -629,9 +645,9 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true  // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
@@ -709,14 +725,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 98.71, 98.71, 400, 98.45 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 50 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -724,7 +740,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 350, 350, 100, 500 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -734,9 +750,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          300    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   700    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Junction Deviation
@@ -761,9 +777,9 @@
  * value set here, it may happen instantaneously.
  */
 #if DISABLED(JUNCTION_DEVIATION)
-  #define DEFAULT_XJERK 10.0
-  #define DEFAULT_YJERK 10.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_XJERK  15.0
+  #define DEFAULT_YJERK  15.0
+  #define DEFAULT_ZJERK  0.4
 #endif
 
 #define DEFAULT_EJERK    5.0  // May be used by Linear Advance
@@ -1006,7 +1022,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1035,12 +1051,12 @@
 #define Y_BED_SIZE 200
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS -33
+#define Y_MIN_POS -25
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
+#define Z_MAX_POS 180
 
 /**
  * Software Endstops
@@ -1189,7 +1205,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3
+  #define GRID_MAX_POINTS_X 5
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
@@ -1400,7 +1416,7 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS     // Persistent storage with M500 and M501
-//#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
+#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #if ENABLED(EEPROM_SETTINGS)
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
@@ -1435,13 +1451,13 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
-#define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_FAN_SPEED     255 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_TEMP_HOTEND 230
+#define PREHEAT_2_TEMP_BED    100
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1630,7 +1646,7 @@
  *
  * Use CRC checks and retries on the SD communication.
  */
-#define SD_CHECK_AND_RETRY
+//#define SD_CHECK_AND_RETRY
 
 /**
  * LCD Menu Items
@@ -1647,7 +1663,7 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-//#define ENCODER_PULSES_PER_STEP 4
+#define ENCODER_PULSES_PER_STEP 5
 
 //
 // Use this option to override the number of step signals required to
@@ -1693,7 +1709,7 @@
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 //
-//#define SPEAKER
+#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
@@ -1716,7 +1732,7 @@
 //
 // Note: Usually sold with a white PCB.
 //
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 //
 // Original RADDS LCD Display+Encoder+SDCardReader
@@ -1856,7 +1872,7 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
 //
 // ReprapWorld Graphical LCD
