@@ -27,7 +27,6 @@
  * High-level motion commands to feed the planner
  * Some of these methods may migrate to the planner class.
  */
-#pragma once
 
 #include "../inc/MarlinConfig.h"
 
@@ -125,8 +124,10 @@ XYZ_DEFS(signed char, home_dir, HOME_DIR);
 #if HAS_HOTEND_OFFSET
   extern float hotend_offset[XYZ][HOTENDS];
   void reset_hotend_offsets();
-#else
+#elif HOTENDS > 0
   constexpr float hotend_offset[XYZ][HOTENDS] = { { 0 }, { 0 }, { 0 } };
+#else
+  constexpr float hotend_offset[XYZ][1] = { { 0 }, { 0 }, { 0 } };
 #endif
 
 typedef struct { float min, max; } axis_limits_t;
@@ -186,6 +187,7 @@ void prepare_move_to_destination();
  */
 void do_blocking_move_to(const float rx, const float ry, const float rz, const float &fr_mm_s=0);
 void do_blocking_move_to_x(const float &rx, const float &fr_mm_s=0);
+void do_blocking_move_to_y(const float &ry, const float &fr_mm_s=0);
 void do_blocking_move_to_z(const float &rz, const float &fr_mm_s=0);
 void do_blocking_move_to_xy(const float &rx, const float &ry, const float &fr_mm_s=0);
 

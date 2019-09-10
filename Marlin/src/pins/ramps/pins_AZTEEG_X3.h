@@ -27,16 +27,14 @@
 
 #ifndef __AVR_ATmega2560__
   #error "Oops! Select 'Arduino/Genuino Mega or Mega 2560' in 'Tools > Board.'"
-#endif
-
-#if HOTENDS > 2 || E_STEPPERS > 2
+#elif HOTENDS > 2 || E_STEPPERS > 2
   #error "Azteeg X3 supports up to 2 hotends / E-steppers. Comment out this line to continue."
 #endif
 
 #if ENABLED(CASE_LIGHT_ENABLE) && !PIN_EXISTS(CASE_LIGHT)
   #define CASE_LIGHT_PIN    6   // Define before RAMPS pins include
 #endif
-#define BOARD_NAME "Azteeg X3"
+#define BOARD_INFO_NAME "Azteeg X3"
 
 //
 // Servos

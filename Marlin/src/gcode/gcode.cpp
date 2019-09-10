@@ -342,6 +342,10 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 12: M12(); break;                                    // M12: Synchronize and optionally force a CLC set
       #endif
 
+      #if ENABLED(EXPECTED_PRINTER_CHECK)
+        case 16: M16(); break;                                    // M16: Expected printer check
+      #endif
+
       case 17: M17(); break;                                      // M17: Enable all stepper motors
 
       #if ENABLED(SDSUPPORT)
@@ -396,17 +400,27 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         case 100: M100(); break;                                  // M100: Free Memory Report
       #endif
 
-      case 104: M104(); break;                                    // M104: Set hot end temperature
-      case 109: M109(); break;                                    // M109: Wait for hotend temperature to reach target
+      #if EXTRUDERS
+        case 104: M104(); break;                                  // M104: Set hot end temperature
+        case 109: M109(); break;                                  // M109: Wait for hotend temperature to reach target
+      #endif
+
+      case 105: M105(); return;                                   // M105: Report Temperatures (and say "ok")
+
+      #if FAN_COUNT > 0
+        case 106: M106(); break;                                  // M106: Fan On
+        case 107: M107(); break;                                  // M107: Fan Off
+      #endif
+
       case 110: M110(); break;                                    // M110: Set Current Line Number
       case 111: M111(); break;                                    // M111: Set debug level
 
       #if DISABLED(EMERGENCY_PARSER)
         case 108: M108(); break;                                  // M108: Cancel Waiting
-        case 112: M112(); break;                                  // M112: Emergency Stop
+        case 112: M112(); break;                                  // M112: Full Shutdown
         case 410: M410(); break;                                  // M410: Quickstop - Abort all the planned moves.
         #if ENABLED(HOST_PROMPT_SUPPORT)
-          case 876: M876(); break;                                  // M876: Handle Host prompt responses
+          case 876: M876(); break;                                // M876: Handle Host prompt responses
         #endif
       #else
         case 108: case 112: case 410:
@@ -430,15 +444,8 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         //case 191: M191(); break;                                // M191: Wait for chamber temperature to reach target
       #endif
 
-      case 105: M105(); return;                                   // M105: Report Temperatures (and say "ok")
-
       #if ENABLED(AUTO_REPORT_TEMPERATURES) && HAS_TEMP_SENSOR
         case 155: M155(); break;                                  // M155: Set temperature auto-report interval
-      #endif
-
-      #if FAN_COUNT > 0
-        case 106: M106(); break;                                  // M106: Fan On
-        case 107: M107(); break;                                  // M107: Fan Off
       #endif
 
       #if ENABLED(PARK_HEAD_ON_PAUSE)
@@ -477,7 +484,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       case 120: M120(); break;                                    // M120: Enable endstops
       case 121: M121(); break;                                    // M121: Disable endstops
 
-      #if HAS_LCD_MENU
+      #if HOTENDS && HAS_LCD_MENU
         case 145: M145(); break;                                  // M145: Set material heatup parameters
       #endif
 
@@ -549,7 +556,11 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
       #endif
 
       case 220: M220(); break;                                    // M220: Set Feedrate Percentage: S<percent> ("FR" on your LCD)
-      case 221: M221(); break;                                    // M221: Set Flow Percentage
+
+      #if EXTRUDERS
+        case 221: M221(); break;                                  // M221: Set Flow Percentage
+      #endif
+
       case 226: M226(); break;                                    // M226: Wait until a pin reaches a state
 
       #if HAS_SERVOS
@@ -667,6 +678,10 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       #if ENABLED(SD_ABORT_ON_ENDSTOP_HIT)
         case 540: M540(); break;                                  // M540: Set abort on endstop hit for SD printing
+      #endif
+
+      #if ENABLED(BAUD_RATE_GCODE)
+        case 575: M575(); break;                                  // M575: Set serial baudrate
       #endif
 
       #if HAS_BED_PROBE
@@ -804,7 +819,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
  * This is called from the main loop()
  */
 void GcodeSuite::process_next_command() {
-  char * const current_command = queue.buffer[queue.index_r];
+  char * const current_command = queue.command_buffer[queue.index_r];
 
   PORT_REDIRECT(queue.port[queue.index_r]);
 
@@ -813,7 +828,7 @@ void GcodeSuite::process_next_command() {
     SERIAL_ECHOLN(current_command);
     #if ENABLED(M100_FREE_MEMORY_DUMPER)
       SERIAL_ECHOPAIR("slot:", queue.index_r);
-      M100_dump_routine(PSTR("   Command Queue:"), queue.buffer, queue.buffer + sizeof(queue.buffer));
+      M100_dump_routine(PSTR("   Command Queue:"), queue.command_buffer, queue.command_buffer + sizeof(queue.command_buffer));
     #endif
   }
 

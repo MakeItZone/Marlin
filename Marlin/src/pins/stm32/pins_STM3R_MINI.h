@@ -29,8 +29,8 @@
  * 21017 Victor Perez Marlin for stm32f1 test
  */
 
-#define BOARD_NAME           "STM3R Mini"
-#define DEFAULT_MACHINE_NAME BOARD_NAME
+#define BOARD_INFO_NAME      "STM3R Mini"
+#define DEFAULT_MACHINE_NAME BOARD_INFO_NAME
 
 // Enable I2C_EEPROM for testing
 #define I2C_EEPROM
@@ -127,14 +127,14 @@
     #define LCD_PINS_D7    PB15
   #else
     #define LCD_PINS_RS    PB8
-    #define LCD_PINS_ENABLE PD2ins
+    #define LCD_PINS_ENABLE PD2
     #define LCD_PINS_D4    PB12
     #define LCD_PINS_D5    PB13
     #define LCD_PINS_D6    PB14
     #define LCD_PINS_D7    PB15
     #if DISABLED(NEWPANEL)
       #define BEEPER_PIN   33
-      // Buttons are attached to a shift register
+      // Buttons attached to a shift register
       // Not wired yet
       //#define SHIFT_CLK  38
       //#define SHIFT_LD   42
@@ -143,7 +143,15 @@
     #endif
   #endif
 
-  #if ENABLED(NEWPANEL)
+  #if ENABLED(TOUCH_BUTTONS)
+
+    #define TOUCH_CS_PIN   PB12   // SPI2_NSS
+    #define TOUCH_SCK_PIN  PB13
+    #define TOUCH_MOSI_PIN PB14
+    #define TOUCH_MISO_PIN PB15
+    #define TOUCH_INT_PIN  PC6   // (PenIRQ coming from ADS7843)
+
+  #elif ENABLED(NEWPANEL)
 
     #if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
 
@@ -246,7 +254,7 @@
       // Beeper on AUX-4
       #define BEEPER_PIN   33
 
-      // buttons are directly attached to AUX-2
+      // Buttons directly attached to AUX-2
       #if ENABLED(REPRAPWORLD_KEYPAD)
         #define BTN_EN1    64
         #define BTN_EN2    59
