@@ -27,13 +27,11 @@
 
 #ifndef __AVR_ATmega2560__
   #error "Oops! Select 'Arduino/Genuino Mega or Mega 2560' in 'Tools > Board.'"
-#endif
-
-#if HOTENDS > 5 || E_STEPPERS > 5
+#elif HOTENDS > 5 || E_STEPPERS > 5
   #error "Azteeg X3 Pro supports up to 5 hotends / E-steppers. Comment out this line to continue."
 #endif
 
-#define BOARD_NAME "Azteeg X3 Pro"
+#define BOARD_INFO_NAME "Azteeg X3 Pro"
 
 //
 // RAMPS pins overrides

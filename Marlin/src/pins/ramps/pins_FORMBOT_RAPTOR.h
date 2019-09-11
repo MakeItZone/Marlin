@@ -27,14 +27,12 @@
 
 #ifndef __AVR_ATmega2560__
   #error "Oops! Select 'Arduino/Genuino Mega or Mega 2560' in 'Tools > Board.'"
+#elif HOTENDS > 3 || E_STEPPERS > 3
+  #error "Formbot supports up to 3 hotends / E-steppers. Comment out this line to continue."
 #endif
 
-#if HOTENDS > 3 || E_STEPPERS > 3
-  #error "Formbot supports up to 3 hotends / E-steppers. Comment this line to keep going."
-#endif
-
-#define BOARD_NAME           "Formbot Raptor"
-#define DEFAULT_MACHINE_NAME BOARD_NAME
+#define BOARD_INFO_NAME      "Formbot Raptor"
+#define DEFAULT_MACHINE_NAME BOARD_INFO_NAME
 
 //
 // Servos

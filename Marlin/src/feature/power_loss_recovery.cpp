@@ -35,6 +35,7 @@ bool PrintJobRecovery::enabled; // Initialized by settings.load()
 
 SdFile PrintJobRecovery::file;
 job_recovery_info_t PrintJobRecovery::info;
+const char PrintJobRecovery::filename[5] = "/PLR";
 
 #include "../sd/cardreader.h"
 #include "../lcd/ultralcd.h"
@@ -174,7 +175,9 @@ void PrintJobRecovery::save(const bool force/*=false*/, const bool save_queue/*=
       info.active_extruder = active_extruder;
     #endif
 
-    HOTEND_LOOP() info.target_temperature[e] = thermalManager.temp_hotend[e].target;
+    #if EXTRUDERS
+      HOTEND_LOOP() info.target_temperature[e] = thermalManager.temp_hotend[e].target;
+    #endif
 
     #if HAS_HEATED_BED
       info.target_temperature_bed = thermalManager.temp_bed.target;
@@ -211,7 +214,7 @@ void PrintJobRecovery::save(const bool force/*=false*/, const bool save_queue/*=
     // Commands in the queue
     info.queue_length = save_queue ? queue.length : 0;
     info.queue_index_r = queue.index_r;
-    COPY(info.queue_buffer, queue.buffer);
+    COPY(info.queue_buffer, queue.command_buffer);
 
     // Elapsed print job time
     info.print_job_elapsed = print_job_timer.duration();
@@ -296,17 +299,19 @@ void PrintJobRecovery::resume() {
   #endif
 
   // Restore all hotend temperatures
-  HOTEND_LOOP() {
-    const int16_t et = info.target_temperature[e];
-    if (et) {
-      #if HOTENDS > 1
-        sprintf_P(cmd, PSTR("T%i"), e);
+  #if HOTENDS
+    HOTEND_LOOP() {
+      const int16_t et = info.target_temperature[e];
+      if (et) {
+        #if HOTENDS > 1
+          sprintf_P(cmd, PSTR("T%i"), e);
+          gcode.process_subcommands_now(cmd);
+        #endif
+        sprintf_P(cmd, PSTR("M109 S%i"), et);
         gcode.process_subcommands_now(cmd);
-      #endif
-      sprintf_P(cmd, PSTR("M109 S%i"), et);
-      gcode.process_subcommands_now(cmd);
+      }
     }
-  }
+  #endif
 
   // Restore print cooling fan speeds
   FANS_LOOP(i) {
@@ -331,8 +336,7 @@ void PrintJobRecovery::resume() {
     // Restore leveling state before 'G92 Z' to ensure
     // the Z stepper count corresponds to the native Z.
     if (info.fade || info.leveling) {
-      dtostrf(info.fade, 1, 1, str_1);
-      sprintf_P(cmd, PSTR("M420 S%i Z%s"), int(info.leveling), str_1);
+      sprintf_P(cmd, PSTR("M420 S%i Z%s"), int(info.leveling), dtostrf(info.fade, 1, 1, str_1));
       gcode.process_subcommands_now(cmd);
     }
   #endif
@@ -354,9 +358,10 @@ void PrintJobRecovery::resume() {
   #endif
 
   // Move back to the saved XY
-  dtostrf(info.current_position[X_AXIS], 1, 3, str_1);
-  dtostrf(info.current_position[Y_AXIS], 1, 3, str_2);
-  sprintf_P(cmd, PSTR("G1 X%s Y%s F3000"), str_1, str_2);
+  sprintf_P(cmd, PSTR("G1 X%s Y%s F3000"),
+    dtostrf(info.current_position[X_AXIS], 1, 3, str_1),
+    dtostrf(info.current_position[Y_AXIS], 1, 3, str_2)
+  );
   gcode.process_subcommands_now(cmd);
 
   // Move back to the saved Z
@@ -381,8 +386,7 @@ void PrintJobRecovery::resume() {
   gcode.process_subcommands_now(cmd);
 
   // Restore E position with G92.9
-  dtostrf(info.current_position[E_AXIS], 1, 3, str_1);
-  sprintf_P(cmd, PSTR("G92.9 E%s"), str_1);
+  sprintf_P(cmd, PSTR("G92.9 E%s"), dtostrf(info.current_position[E_AXIS], 1, 3, str_1));
   gcode.process_subcommands_now(cmd);
 
   // Relative mode
@@ -452,12 +456,14 @@ void PrintJobRecovery::resume() {
           DEBUG_ECHOLNPAIR("active_extruder: ", int(info.active_extruder));
         #endif
 
-        DEBUG_ECHOPGM("target_temperature: ");
-        HOTEND_LOOP() {
-          DEBUG_ECHO(info.target_temperature[e]);
-          if (e < HOTENDS - 1) DEBUG_CHAR(',');
-        }
-        DEBUG_EOL();
+        #if HOTENDS
+          DEBUG_ECHOPGM("target_temperature: ");
+          HOTEND_LOOP() {
+            DEBUG_ECHO(info.target_temperature[e]);
+            if (e < HOTENDS - 1) DEBUG_CHAR(',');
+          }
+          DEBUG_EOL();
+        #endif
 
         #if HAS_HEATED_BED
           DEBUG_ECHOLNPAIR("target_temperature_bed: ", info.target_temperature_bed);
