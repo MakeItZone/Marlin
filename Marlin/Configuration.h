@@ -499,10 +499,10 @@
   //#define DEFAULT_Ki 2.25
   //#define DEFAULT_Kd 440
 
-  // JGAurora A5 (tuned at 210C)
-  #define DEFAULT_Kp 35.3//22.2
-  #define DEFAULT_Ki 4.35//1.08
-  #define DEFAULT_Kd 71.57//114
+  // JGAurora A5 (tuned at 200C)
+  #define DEFAULT_Kp 34.37
+  #define DEFAULT_Ki 5.91
+  #define DEFAULT_Kd 49.98
 
 #endif // PIDTEMP
 
@@ -541,9 +541,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 10.00
-  #define DEFAULT_bedKi .023
-  #define DEFAULT_bedKd 305.4
+  //#define DEFAULT_bedKp 10.00
+  //#define DEFAULT_bedKi .023
+  //#define DEFAULT_bedKd 305.4
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -552,6 +552,11 @@
   //#define DEFAULT_bedKd 1675.16
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
+  // JG Aurora A5 autotuned to 60C
+  #define DEFAULT_bedKp 38.30
+  #define DEFAULT_bedKi 6.15
+  #define DEFAULT_bedKd 158.96
+
 #endif // PIDTEMPBED
 
 // @section extruder
