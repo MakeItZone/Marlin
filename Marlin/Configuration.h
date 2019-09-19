@@ -553,10 +553,10 @@
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 
-  // JG Aurora A3 Autotuned at 60C
-  #define DEFAULT_bedKp 109.88
-  #define DEFAULT_bedKi 20.96
-  #define DEFAULT_bedKd 384.01
+  // JG Aurora A3 Autotuned at 60C, hand tweaked
+  #define DEFAULT_bedKp 40
+  #define DEFAULT_bedKi 10
+  #define DEFAULT_bedKd 160
 #endif // PIDTEMPBED
 
 // @section extruder
@@ -737,7 +737,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 98.71, 98.71, 400, 98.45 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 98.71, 98.71, 400, 97.33 }
 
 /**
  * Default Max Feed Rate (mm/s)
