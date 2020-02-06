@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -67,7 +67,7 @@
 #define BOARD_INFO_NAME "RAMPS-SMART"
 
 #define IS_RAMPS_SMART
-#include "pins_RAMPS.h"
+#include "../ramps/pins_RAMPS.h"
 
 // I2C EEPROM with 4K of space
 #define I2C_EEPROM

@@ -1,7 +1,7 @@
 /**
  * Marlin 3D Printer Firmware
  *
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  * SAMD51 HAL developed by Giuliano Zaro (AKA GMagician)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -99,7 +99,7 @@ void HAL_timer_start(const uint8_t timer_num, const uint32_t frequency) {
   SYNC(tc->COUNT32.SYNCBUSY.bit.CTRLB);
 
   // Set compare value
-  tc->COUNT32.COUNT.reg = tc->COUNT32.CC[0].reg = HAL_TIMER_RATE / frequency;
+  tc->COUNT32.COUNT.reg = tc->COUNT32.CC[0].reg = (HAL_TIMER_RATE) / frequency;
 
   // And start timer
   tc->COUNT32.CTRLA.bit.ENABLE = true;
