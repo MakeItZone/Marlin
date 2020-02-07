@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -31,8 +31,12 @@
   #error "Formbot supports up to 3 hotends / E-steppers. Comment out this line to continue."
 #endif
 
-#define BOARD_INFO_NAME      "Formbot Raptor"
-#define DEFAULT_MACHINE_NAME BOARD_INFO_NAME
+#ifndef BOARD_INFO_NAME
+  #define BOARD_INFO_NAME      "Formbot Raptor"
+#endif
+#ifndef DEFAULT_MACHINE_NAME
+  #define DEFAULT_MACHINE_NAME BOARD_INFO_NAME
+#endif
 
 //
 // Servos

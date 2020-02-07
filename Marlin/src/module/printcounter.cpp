@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -34,7 +34,7 @@ Stopwatch print_job_timer;      // Global Print Job Timer instance
 #endif
 
 #include "printcounter.h"
-#include "../Marlin.h"
+#include "../MarlinCore.h"
 #include "../HAL/shared/persistent_store_api.h"
 
 #if HAS_BUZZER && SERVICE_WARNING_BUZZES > 0
@@ -183,11 +183,9 @@ void PrintCounter::saveStats() {
 
 #if HAS_SERVICE_INTERVALS
   inline void _service_when(char buffer[], const char * const msg, const uint32_t when) {
-    duration_t elapsed = when;
-    elapsed.toString(buffer);
     SERIAL_ECHOPGM(MSG_STATS);
     serialprintPGM(msg);
-    SERIAL_ECHOLNPAIR(" in ", buffer);
+    SERIAL_ECHOLNPAIR(" in ", duration_t(when).toString(buffer));
   }
 #endif
 

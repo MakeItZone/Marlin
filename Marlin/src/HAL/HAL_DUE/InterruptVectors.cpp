@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -48,7 +48,7 @@ static DeviceVectors ram_tab = { nullptr };
  * If it is not, then it copies the ROM table to the SRAM and relocates the table
  * by reprogramming the NVIC registers
  */
-static pfnISR_Handler* get_relocated_table_addr(void) {
+static pfnISR_Handler* get_relocated_table_addr() {
   // Get the address of the interrupt/exception table
   uint32_t isrtab = SCB->VTOR;
 
