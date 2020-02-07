@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -47,7 +47,7 @@ static char _ALIGN(4) HAL_eeprom_data[HAL_EEPROM_SIZE];
   #define EEPROM_FILENAME "eeprom.dat"
 
   bool PersistentStore::access_start() {
-    if (!card.isDetected()) return false;
+    if (!card.isMounted()) return false;
 
     SdFile file, root = card.getroot();
     if (!file.open(&root, EEPROM_FILENAME, O_RDONLY))
@@ -62,7 +62,7 @@ static char _ALIGN(4) HAL_eeprom_data[HAL_EEPROM_SIZE];
   }
 
   bool PersistentStore::access_finish() {
-    if (!card.isDetected()) return false;
+    if (!card.isMounted()) return false;
 
     SdFile file, root = card.getroot();
     int bytes_written = 0;
