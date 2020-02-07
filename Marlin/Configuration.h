@@ -138,7 +138,7 @@
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
-#define MACHINE_UUID "299089c4-8e18-452f-a561-c5145a1d8443"
+#define MACHINE_UUID "172c3af4-dccb-49e2-83c0-a790801f6c1b"
 
 // @section extruder
 
@@ -147,7 +147,7 @@
 #define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
+#define DEFAULT_NOMINAL_FILAMENT_DIA 2.85
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -407,7 +407,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 5 //JR - from old config & parts available.
+#define TEMP_SENSOR_0 7 //JR - from https://www.lulzbot.com/support/budaschnozzle-20
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -451,14 +451,14 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_1_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_2_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_3_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_4_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_5_MAXTEMP 305 //JR - to match E3D hotend
-#define HEATER_6_MAXTEMP 305
-#define HEATER_7_MAXTEMP 305
+#define HEATER_0_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_1_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_2_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_3_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_4_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_5_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_6_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
+#define HEATER_7_MAXTEMP 235 // JR - to match https://www.lulzbot.com/support/budaschnozzle-20
 #define BED_MAXTEMP      150
 
 //===========================================================================
@@ -484,9 +484,9 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Buda 2.0 on 24V
-  //#define DEFAULT_Kp 6
-  //#define DEFAULT_Ki .3
-  //#define DEFAULT_Kd 125
+  #define DEFAULT_Kp 6
+  #define DEFAULT_Ki .3
+  #define DEFAULT_Kd 125
 
   // Buda 2.0 on 12V
   //#define DEFAULT_Kp 22.2
@@ -509,9 +509,9 @@
   //#define DEFAULT_Kd 440
 
 // JR- E3Dv6- 12V heater, with bang-bang & PWM limited to < half full range
-    #define  DEFAULT_Kp 37.28
-    #define  DEFAULT_Ki 5.00
-    #define  DEFAULT_Kd 69.48
+//    #define  DEFAULT_Kp 37.28
+//   #define  DEFAULT_Ki 5.00
+//    #define  DEFAULT_Kd 69.48
 
 // JR- E3Dv6- 24V heater
 //    #define  DEFAULT_Kp 26.29
@@ -568,7 +568,7 @@
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
   //#define DEFAULT_bedKp 10.00
   //#define DEFAULT_bedKi .023
-  //#define DEFAULT_bedKd 305.4
+  //#define DEFAULT_bedKd 235.4
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -766,14 +766,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100.5, 100.5, 800, 803 } // JR- extruder was measured as ~803 steps via 100mm extrusion test
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100.5, 100.5, 800, 833 } // JR- extruder val from reading config on LCD
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 800, 800, 8, 50 }
+#define DEFAULT_MAX_FEEDRATE          { 800, 800, 3, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
