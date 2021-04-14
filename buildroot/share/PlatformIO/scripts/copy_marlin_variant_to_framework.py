@@ -1,6 +1,10 @@
+#
+# copy_marlin_variant_to_framework.py
+#
 import os,shutil
 from SCons.Script import DefaultEnvironment
 from platformio import util
+from platformio.package.meta import PackageSpec
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -16,7 +20,18 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant")
 
-FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm32")
+platform_packages = env.GetProjectOption('platform_packages')
+# if there's no framework defined, take it from the class name of platform
+framewords = {
+    "Ststm32Platform": "framework-arduinoststm32",
+    "AtmelavrPlatform": "framework-arduino-avr"
+}
+if len(platform_packages) == 0:
+    platform_name = framewords[platform.__class__.__name__]
+else:
+    platform_name = PackageSpec(platform_packages[0]).name
+
+FRAMEWORK_DIR = platform.get_package_dir(platform_name)
 assert os.path.isdir(FRAMEWORK_DIR)
 assert os.path.isdir("buildroot/share/PlatformIO/variants")
 
