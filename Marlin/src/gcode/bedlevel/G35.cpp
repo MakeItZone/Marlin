@@ -91,8 +91,8 @@ void GcodeSuite::G35() {
   // Disable duplication mode on homing
   TERN_(HAS_DUPLICATION_MODE, set_duplication_enabled(false));
 
-  // Home all before this procedure
-  home_all_axes();
+  // Home only Z axis when X and Y is trusted, otherwise all axes, if needed before this procedure
+  if (!all_axes_trusted()) process_subcommands_now_P(PSTR("G28Z"));
 
   bool err_break = false;
 
@@ -105,7 +105,7 @@ void GcodeSuite::G35() {
     do_blocking_move_to_z(SUM_TERN(BLTOUCH_HS_MODE, Z_CLEARANCE_BETWEEN_PROBES, 7));
     const float z_probed_height = probe.probe_at_point(screws_tilt_adjust_pos[i], PROBE_PT_RAISE, 0, true);
 
-    if (ISNAN(z_probed_height)) {
+    if (isnan(z_probed_height)) {
       SERIAL_ECHOPAIR("G35 failed at point ", i, " (");
       SERIAL_ECHOPGM_P((char *)pgm_read_ptr(&tramming_point_name[i]));
       SERIAL_CHAR(')');

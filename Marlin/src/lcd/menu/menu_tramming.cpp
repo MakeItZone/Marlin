@@ -54,7 +54,7 @@ static bool probe_single_point() {
   z_measured[tram_index] = z_probed_height;
   move_to_tramming_wait_pos();
 
-  return !ISNAN(z_probed_height);
+  return !isnan(z_probed_height);
 }
 
 static void _menu_single_probe(const uint8_t point) {
@@ -92,7 +92,7 @@ void goto_tramming_wizard() {
 
   // Inject G28, wait for homing to complete,
   set_all_unhomed();
-  queue.inject_P(TERN(G28_L0_ENSURES_LEVELING_OFF, PSTR("G28L0"), G28_STR));
+  queue.inject_P(TERN(CAN_SET_LEVELING_AFTER_G28, PSTR("G28L0"), G28_STR));
 
   ui.goto_screen([]{
     _lcd_draw_homing();
